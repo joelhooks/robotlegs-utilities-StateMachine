@@ -1,3 +1,9 @@
+/*
+  ADAPTED FOR ROBOTLEGS FROM:
+  PureMVC AS3 Utility - StateMachine
+  Copyright (c) 2008 Neil Manuell, Cliff Hall
+  Your reuse is governed by the Creative Commons Attribution 3.0 License
+ */
 package org.robotlegs.utilities.statemachine
 {
 	import flash.events.IEventDispatcher;
@@ -23,10 +29,9 @@ package org.robotlegs.utilities.statemachine
 		}
 		
 		/**
-		 * Inject the <code>StateMachine</code> into the PureMVC apparatus.
+		 * Inject the <code>StateMachine</code> into the Robotlegs apparatus.
 		 * <P>
 		 * Creates the <code>StateMachine</code> instance, registers all the states
-		 * and registers the <code>StateMachine</code> with the <code>IFacade</code>.
 		 */
 		public function inject(stateMachine:StateMachine):void
 		{
