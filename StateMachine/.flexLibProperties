@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties version="1">
+  <includeClasses>
+    <classEntry path="org.robotlegs.utilities.statemachine.FSMInjector"/>
+    <classEntry path="org.robotlegs.utilities.statemachine.StateMachine"/>
+    <classEntry path="org.robotlegs.utilities.statemachine.State"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
