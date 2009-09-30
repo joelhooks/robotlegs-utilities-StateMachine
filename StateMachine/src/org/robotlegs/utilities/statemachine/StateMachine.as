@@ -74,21 +74,21 @@ package org.robotlegs.utilities.statemachine
 		/**
 		 * Transitions to the given state from the current state.
 		 * <P>
-		 * Sends the <code>exiting</code> notification for the current state 
-		 * followed by the <code>entering</code> notification for the new state.
+		 * Sends the <code>exiting</code> StateEvent for the current state 
+		 * followed by the <code>entering</code> StateEvent for the new state.
 		 * Once finally transitioned to the new state, the <code>changed</code> 
-		 * notification for the new state is sent.</P>
+		 * StateEvent for the new state is sent.</P>
 		 * <P>
 		 * If a data parameter is provided, it is included as the body of all
 		 * three state-specific transition notes.</P>
 		 * <P>
 		 * Finally, when all the state-specific transition notes have been
-		 * sent, a <code>StateMachine.CHANGED</code> note is sent, with the
+		 * sent, a <code>StateEvent.CHANGED</code> event is sent, with the
 		 * new <code>State</code> object as the <code>body</code> and the name of the 
 		 * new state in the <code>type</code>.
 		 * 
 		 * @param nextState the next State to transition to.
-		 * @param data is the optional Object that was sent in the <code>StateMachine.ACTION</code> notification body
+		 * @param data is the optional Object that was sent in the <code>StateEvent.ACTION</code> event
 		 */
 		protected function transitionTo( nextState:State, data:Object=null ):void
 		{

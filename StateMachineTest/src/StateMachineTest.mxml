@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
 			   xmlns:fu="http://www.adobe.com/2009/flexUnitUIRunner"
-			   xmlns:s="library://ns.adobe.com/flex/spark"
-			   xmlns:mx="library://ns.adobe.com/flex/halo"
 			   creationComplete="onCreationComplete()">
 
-	<fx:Script>
+	<mx:Script>
 		<![CDATA[
 			import org.robotlegs.utilities.statemachine.tests.StateMachineTestSuite;
 			import org.flexunit.listeners.UIListener;
@@ -20,11 +18,8 @@
 				core.run(StateMachineTestSuite);
 			}
 		]]>
-	</fx:Script>
+	</mx:Script>
 
-	<s:layout>
-		<s:BasicLayout/>
-	</s:layout>
 	
 	<fu:TestRunnerBase id="uiListener"/>
-</s:Application>
+</mx:Application>

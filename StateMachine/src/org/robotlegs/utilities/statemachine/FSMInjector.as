@@ -10,7 +10,6 @@ package org.robotlegs.utilities.statemachine
 	
 	import org.as3commons.logging.ILogger;
 	import org.robotlegs.core.IInjector;
-	import org.robotlegs.core.IMediatorFactory;
 
 	public class FSMInjector
 	{
