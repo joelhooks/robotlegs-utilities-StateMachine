@@ -30,10 +30,10 @@ package org.robotlegs.utilities.statemachine.tests.cases
 			injector = new SwiftSuspendersInjector();
 			logger = new NullLogger();
 			
-			injector.bindValue(IInjector, injector, 'mvcsInjector');
-			injector.bindValue(ILogger, logger, 'mvcsLogger');
-			injector.bindValue(IEventDispatcher, eventDispatcher, 'mvcsEventDispatcher');
-			injector.bindValue(IEventBroadcaster, eventBroadcaster, 'mvcsEventBroadcaster');
+			injector.mapValue(IInjector, injector, 'mvcsInjector');
+			injector.mapValue(ILogger, logger, 'mvcsLogger');
+			injector.mapValue(IEventDispatcher, eventDispatcher, 'mvcsEventDispatcher');
+			injector.mapValue(IEventBroadcaster, eventBroadcaster, 'mvcsEventBroadcaster');
 			
 			fsmInjector = new FSMInjector(this.fsm);
 			injector.injectInto(fsmInjector);
@@ -42,10 +42,10 @@ package org.robotlegs.utilities.statemachine.tests.cases
 		[After]
 		public function runAfterEachTest():void
 		{
-			injector.unbind(IInjector, 'mvcsInjector')
-			injector.unbind(IEventDispatcher, 'mvcsEventDispatcher');
-			injector.unbind(IEventBroadcaster, 'mvcsEventBroadcaster');
-			injector.unbind(ILogger, 'mvcsLogger');
+			injector.unmap(IInjector, 'mvcsInjector')
+			injector.unmap(IEventDispatcher, 'mvcsEventDispatcher');
+			injector.unmap(IEventBroadcaster, 'mvcsEventBroadcaster');
+			injector.unmap(ILogger, 'mvcsLogger');
 			fsmInjector = null;
 		}
 		
