@@ -4,7 +4,6 @@ package org.robotlegs.utilities.statemachine.tests.cases
 	import flash.events.IEventDispatcher;
 	
 	import org.flexunit.Assert;
-	import org.robotlegs.adapters.SwiftSuspendersInjector;
 	import org.robotlegs.utilities.statemachine.FSMInjector;
 	import org.robotlegs.utilities.statemachine.StateEvent;
 	import org.robotlegs.utilities.statemachine.StateMachine;
