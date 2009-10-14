@@ -5,7 +5,6 @@ package org.robotlegs.utilities.statemachine.tests.cases
 	
 	import org.flexunit.Assert;
 	import org.robotlegs.adapters.SwiftSuspendersInjector;
-	import org.robotlegs.core.IInjector;
 	import org.robotlegs.utilities.statemachine.FSMInjector;
 	import org.robotlegs.utilities.statemachine.StateEvent;
 	import org.robotlegs.utilities.statemachine.StateMachine;
@@ -13,27 +12,19 @@ package org.robotlegs.utilities.statemachine.tests.cases
 	public class StateMachineTests
 	{
 		private var eventDispatcher:IEventDispatcher;
-		private var injector:IInjector;
 		private var fsmInjector:FSMInjector;
 		
 		[Before]
 		public function runBeforeEachTest():void
 		{	
 			eventDispatcher = new EventDispatcher();
-			injector = new SwiftSuspendersInjector();
-			
-			injector.mapValue(IInjector, injector, 'mvcsInjector');
-			injector.mapValue(IEventDispatcher, eventDispatcher, 'mvcsEventDispatcher');
-			
 			fsmInjector = new FSMInjector(this.fsm);
-			injector.injectInto(fsmInjector);
+			fsmInjector.eventDispatcher = eventDispatcher;
 		}
 		
 		[After]
 		public function runAfterEachTest():void
 		{
-			injector.unmap(IInjector, 'mvcsInjector')
-			injector.unmap(IEventDispatcher, 'mvcsEventDispatcher');
 			fsmInjector = null;
 		}
 		
