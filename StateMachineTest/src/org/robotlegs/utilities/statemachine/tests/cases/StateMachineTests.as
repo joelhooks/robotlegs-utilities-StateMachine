@@ -3,37 +3,27 @@ package org.robotlegs.utilities.statemachine.tests.cases
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	
-	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.impl.NullLogger;
 	import org.flexunit.Assert;
 	import org.robotlegs.adapters.SwiftSuspendersInjector;
-	import org.robotlegs.core.IEventBroadcaster;
 	import org.robotlegs.core.IInjector;
-	import org.robotlegs.mvcs.EventBroadcaster;
 	import org.robotlegs.utilities.statemachine.FSMInjector;
 	import org.robotlegs.utilities.statemachine.StateEvent;
 	import org.robotlegs.utilities.statemachine.StateMachine;
 
 	public class StateMachineTests
 	{
-		private var eventBroadcaster:IEventBroadcaster;
 		private var eventDispatcher:IEventDispatcher;
 		private var injector:IInjector;
 		private var fsmInjector:FSMInjector;
-		private var logger:ILogger;
 		
 		[Before]
 		public function runBeforeEachTest():void
 		{	
 			eventDispatcher = new EventDispatcher();
-			eventBroadcaster = new EventBroadcaster(eventDispatcher);
 			injector = new SwiftSuspendersInjector();
-			logger = new NullLogger();
 			
 			injector.mapValue(IInjector, injector, 'mvcsInjector');
-			injector.mapValue(ILogger, logger, 'mvcsLogger');
 			injector.mapValue(IEventDispatcher, eventDispatcher, 'mvcsEventDispatcher');
-			injector.mapValue(IEventBroadcaster, eventBroadcaster, 'mvcsEventBroadcaster');
 			
 			fsmInjector = new FSMInjector(this.fsm);
 			injector.injectInto(fsmInjector);
@@ -44,15 +34,13 @@ package org.robotlegs.utilities.statemachine.tests.cases
 		{
 			injector.unmap(IInjector, 'mvcsInjector')
 			injector.unmap(IEventDispatcher, 'mvcsEventDispatcher');
-			injector.unmap(IEventBroadcaster, 'mvcsEventBroadcaster');
-			injector.unmap(ILogger, 'mvcsLogger');
 			fsmInjector = null;
 		}
 		
 		[Test]
 		public function fsmIsInitialized():void
 		{
-			var stateMachine:StateMachine = new StateMachine();
+			var stateMachine:StateMachine = new StateMachine(eventDispatcher);
 			fsmInjector.inject(stateMachine);
 			Assert.assertEquals(true, stateMachine is StateMachine);
 			Assert.assertEquals(STARTING, stateMachine.currentStateName);
@@ -61,7 +49,7 @@ package org.robotlegs.utilities.statemachine.tests.cases
 		[Test]
 		public function advanceToNextState():void
 		{
-			var stateMachine:StateMachine = new StateMachine();
+			var stateMachine:StateMachine = new StateMachine(eventDispatcher);
 			fsmInjector.inject(stateMachine);
 			eventDispatcher.dispatchEvent( new StateEvent( StateEvent.ACTION, STARTED ) );
 			Assert.assertEquals(CONSTRUCTING, stateMachine.currentStateName);		
@@ -70,7 +58,7 @@ package org.robotlegs.utilities.statemachine.tests.cases
 		[Test]
 		public function constructionStateFailure():void
 		{
-			var stateMachine:StateMachine = new StateMachine();
+			var stateMachine:StateMachine = new StateMachine(eventDispatcher);
 			fsmInjector.inject(stateMachine);
 			eventDispatcher.dispatchEvent( new StateEvent( StateEvent.ACTION, STARTED ) );
 			Assert.assertEquals(CONSTRUCTING, stateMachine.currentStateName);	
@@ -81,7 +69,7 @@ package org.robotlegs.utilities.statemachine.tests.cases
 		[Test]
 		public function stateMachineComplete():void
 		{
-			var stateMachine:StateMachine = new StateMachine();
+			var stateMachine:StateMachine = new StateMachine(eventDispatcher);
 			fsmInjector.inject(stateMachine);
 			eventDispatcher.dispatchEvent( new StateEvent( StateEvent.ACTION, STARTED ) );
 			Assert.assertEquals(CONSTRUCTING, stateMachine.currentStateName);	
@@ -92,7 +80,7 @@ package org.robotlegs.utilities.statemachine.tests.cases
 		[Test]
 		public function cancelStateChange():void
 		{
-			var stateMachine:StateMachine = new StateMachine();
+			var stateMachine:StateMachine = new StateMachine(eventDispatcher);
 			fsmInjector.inject(stateMachine);
 			eventDispatcher.dispatchEvent( new StateEvent( StateEvent.ACTION, STARTED ) );
 			Assert.assertEquals(CONSTRUCTING, stateMachine.currentStateName);

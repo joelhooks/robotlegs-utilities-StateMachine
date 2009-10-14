@@ -8,18 +8,19 @@ package org.robotlegs.utilities.statemachine
 {
 	import flash.events.IEventDispatcher;
 	
-	import org.as3commons.logging.ILogger;
-
 	public class StateMachine
 	{
-		[Inject(name='mvcsEventDispatcher')]
 		public var eventDispatcher:IEventDispatcher;
 		
-		[Inject(name='mvcsLogger')]
-		public var logger:ILogger;
-
-		public function StateMachine()
+		/**
+		 *  StateMachine Constructor
+		 * @param eventDispatcher an event deispatcher used to commincate with interested actors.
+		 * This is typically the Robotlegs framework.
+		 * 
+		 */		
+		public function StateMachine(eventDispatcher:IEventDispatcher)
 		{
+			this.eventDispatcher = eventDispatcher;
 			super();
 		}
 		

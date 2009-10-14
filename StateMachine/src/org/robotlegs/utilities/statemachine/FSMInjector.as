@@ -8,20 +8,12 @@ package org.robotlegs.utilities.statemachine
 {
 	import flash.events.IEventDispatcher;
 	
-	import org.as3commons.logging.ILogger;
-	import org.robotlegs.core.IInjector;
 
 	public class FSMInjector
 	{
 		[Inject(name='mvcsEventDispatcher')]
 		public var eventDispatcher:IEventDispatcher;
 
-		[Inject(name='mvcsInjector')]
-		public var injector:IInjector;
-		
-		[Inject(name='mvcsLogger')]
-		public var logger:ILogger;
-				
 		public function FSMInjector( fsm:XML )
 		{
 			this.fsm = fsm;
@@ -34,7 +26,6 @@ package org.robotlegs.utilities.statemachine
 		 */
 		public function inject(stateMachine:StateMachine):void
 		{
-			injector.injectInto( stateMachine );
 			
 			// Register all the states with the StateMachine
 			for each ( var state:State in states )

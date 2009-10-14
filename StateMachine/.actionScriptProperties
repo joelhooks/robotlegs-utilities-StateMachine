@@ -4,7 +4,6 @@
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="4" path=""/>
-      <libraryPathEntry kind="3" linkType="1" path="/RobotLegsLib/bin/RobotLegsLib.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="1" linkType="1" path="libs"/>
     </libraryPath>
     <sourceAttachmentPath/>
