@@ -83,18 +83,40 @@ package org.robotlegs.utilities.statemachine.tests.cases
 			Assert.assertEquals(CONSTRUCTING, stateMachine.currentStateName);				
 		}
 		
+		[Test]
+		public function singleStateInConfigurationShouldBeAtThatStateInitially():void
+		{
+			var stateMachine:StateMachine = new StateMachine(eventDispatcher);
+			fsmInjector = new FSMInjector(fsmOneState);
+			fsmInjector.inject(stateMachine);
+			Assert.assertEquals("State should be starting", STARTING, stateMachine.currentStateName);
+		}
+
+		[Test]
+		public function singleStateInConfigurationShouldStayInStateOnCompletionEvent():void
+		{
+			var stateMachine:StateMachine = new StateMachine(eventDispatcher);
+			fsmInjector = new FSMInjector(fsmOneState);
+			fsmInjector.inject(stateMachine);
+
+			eventDispatcher.dispatchEvent(new StateEvent(StateEvent.ACTION, STARTED));
+			Assert.assertEquals("State should be starting", STARTING, stateMachine.currentStateName);
+		}
+		
 		////////
 		// State Machine Constants and Vars
 		///////
 		private static const STARTING:String              = "state/starting";
 		private static const START:String                 = "event/start";
+		private static const START_ENTERING:String        = "action/start/entering";
 		private static const STARTED:String               = "action/completed/start";
 		private static const START_FAILED:String          = "action/start/failed";
 		
 		private static const CONSTRUCTING:String          = "state/constructing";
 		private static const CONSTRUCT:String             = "event/construct";
+		private static const CONSTRUCT_ENTERING:String    = "action/construct/entering";
 		private static const CONSTRUCTED:String           = "action/completed/construction";
-		private static const CONSTRUCTION_EXIT:String     = "action/contruction/failed";
+		private static const CONSTRUCTION_EXIT:String     = "event/construction/exit";
 		private static const CONSTRUCTION_FAILED:String   = "action/contruction/failed";
 
 		private static const NAVIGATING:String  	      = "state/navigating";
@@ -102,7 +124,16 @@ package org.robotlegs.utilities.statemachine.tests.cases
 		
 		private static const FAILING:String  	  		  = "state/failing";
 		private static const FAIL:String  	  		  	  = "event/fail";
+		
+		private var fsmOneState:XML =
+			<fsm initial={STARTING}>
 				
+				<!-- THE INITIAL STATE -->
+				<state name={STARTING} entering={START_ENTERING}>
+
+				</state>
+			</fsm>
+		
 		private var fsm:XML = 
 			<fsm initial={STARTING}>
 			    
@@ -117,7 +148,7 @@ package org.robotlegs.utilities.statemachine.tests.cases
 				</state>
 				
 				<!-- DOING SOME WORK -->
-				<state name={CONSTRUCTING} changed={CONSTRUCT} exiting={CONSTRUCTION_EXIT}>
+				<state name={CONSTRUCTING} changed={CONSTRUCT} exiting={CONSTRUCTION_EXIT} entering={CONSTRUCT_ENTERING}>
 
 			       <transition action={CONSTRUCTED} 
 			       			   target={NAVIGATING}/>
