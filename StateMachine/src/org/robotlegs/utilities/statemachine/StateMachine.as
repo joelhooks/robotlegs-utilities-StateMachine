@@ -36,7 +36,7 @@ package org.robotlegs.utilities.statemachine
 			var newStateTarget:String = _currentState.getTarget( event.action );
 			var newState:State = states[ newStateTarget ];
 			if( newState )
-				transitionTo( newState, event.stateTarget );
+				transitionTo( newState, event.data );
 		}
 		
 		protected function handleStateCancel(event:StateEvent):void

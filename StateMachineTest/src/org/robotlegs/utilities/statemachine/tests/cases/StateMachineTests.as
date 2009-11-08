@@ -4,6 +4,7 @@ package org.robotlegs.utilities.statemachine.tests.cases
 	import flash.events.IEventDispatcher;
 	
 	import org.flexunit.Assert;
+	import org.flexunit.async.Async;
 	import org.robotlegs.utilities.statemachine.FSMInjector;
 	import org.robotlegs.utilities.statemachine.StateEvent;
 	import org.robotlegs.utilities.statemachine.StateMachine;
@@ -101,6 +102,21 @@ package org.robotlegs.utilities.statemachine.tests.cases
 
 			eventDispatcher.dispatchEvent(new StateEvent(StateEvent.ACTION, STARTED));
 			Assert.assertEquals("State should be starting", STARTING, stateMachine.currentStateName);
+		}
+		
+		[Test(async)]
+		public function stateTransitionPassesData():void
+		{
+			var stateMachine:StateMachine = new StateMachine(eventDispatcher);
+			var data:Object = {value:"someData"};
+			fsmInjector.inject(stateMachine);
+			Async.handleEvent(this, eventDispatcher, StateEvent.ACTION, handleStateChange );
+			eventDispatcher.dispatchEvent( new StateEvent( StateEvent.ACTION, STARTED, data) );
+		}
+		
+		private function handleStateChange(event:StateEvent, pass:Object):void
+		{
+			Assert.assertTrue( event.data.value == "someData" );
 		}
 		
 		////////

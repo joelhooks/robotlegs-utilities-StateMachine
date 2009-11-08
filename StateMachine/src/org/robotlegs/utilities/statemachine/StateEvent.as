@@ -15,13 +15,11 @@ package org.robotlegs.utilities.statemachine
 		public static const CANCEL:String = "cancel";
 		
 		public var action:String;
-		public var stateTarget:String;
 	    public var data:Object;
 		
 		public function StateEvent(type:String, action:String = null, data:Object = null)
 		{
 			this.action = action;
-			this.stateTarget = stateTarget;
 			this.data = data;
 			super(type, false, false);
 		}
